@@ -7,6 +7,7 @@ require("dotenv").config();
 
 // Routes
 const authRoutes = require("./routes/authRoutes");
+const preferenceRoutes = require("./routes/preferenceRoutes");
 
 // Initialize Express app
 const app = express();
@@ -26,6 +27,7 @@ app.get('/', (req, res) => {
 
 // Route Mapping
 app.use("/api/auth", authRoutes);
+app.use("/api/preferences", preferenceRoutes);
 
 
 //server start  
