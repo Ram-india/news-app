@@ -1,4 +1,4 @@
-import express from "express";
+const express = require( "express");
 import { getPreferences, savePreferences } from "../controllers/preferenceController.js";
 import { verifyToken } from "../middleware/auth.js";
 
