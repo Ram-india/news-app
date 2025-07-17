@@ -10,14 +10,17 @@ const Signup = () => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await API.post("/auth/register", form);
-      alert("Signup successful! Please login.");
+      const res = await API.post("/auth/signup", form);
+      console.log("Signup response:", res.data);
+      alert("Signup successful! Please login."); // ✅ No err here
       navigate("/login");
     } catch (err) {
-      alert(err.response?.data?.msg || "Signup failed");
+      console.error(" Signup error:", err);
+      alert(err.response?.data?.message || "Signup failed");
     }
   };
 

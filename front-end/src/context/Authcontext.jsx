@@ -1,30 +1,54 @@
+import { useState, createContext, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useState, createContext, useContext } from "react";
+import API from "../services/axios";
 
-const AuthContext = createContext(); // ✅ Fix the name to AuthContext (capital "C")
+const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
+  const [token, setToken] = useState(() => localStorage.getItem("token"));
+  const [loading, setLoading] = useState(true); //  
   const navigate = useNavigate();
 
-  const login = (userData) => {
-    setUser(userData);
-    localStorage.setItem("token", userData.token); // optional: save token
+  const login = (token, user) => {
+    localStorage.setItem("token", token);
+    setToken(token);
+    setUser(user);
     navigate("/");
   };
 
   const logout = () => {
-    setUser(null);
     localStorage.removeItem("token");
+    setToken(null);
+    setUser(null);
     navigate("/login");
   };
 
+  // ⬇️ Fetch user on mount if token exists
+  useEffect(() => {
+    const fetchProfile = async () => {
+      if (token && !user) {
+        try {
+          const res = await API.get("/auth/profile");
+          setUser(res.data.user);
+        } catch (err) {
+          console.error(" Failed to fetch profile:", err);
+          logout();
+        } finally {
+          setLoading(false);
+        }
+      } else {
+        setLoading(false);
+      }
+    };
+    fetchProfile();
+  }, [token]);
+
   return (
-    <AuthContext.Provider value={{ user, login, logout }}>
+    <AuthContext.Provider value={{ user, token, login, logout, loading }}>
       {children}
     </AuthContext.Provider>
   );
 };
 
-// ✅ Now this will work properly
 export const useAuth = () => useContext(AuthContext);

@@ -15,13 +15,12 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      console.log("Form data:", form); // Debugging line
       const res = await API.post("/auth/login", form);
-      login({
-        token: res.data.token,
-        name: res.data.name,
-      });
+      login(res.data.token, res.data.user);
+      navigate("/");
     } catch (err) {
-      alert(err.response?.data?.msg || "Login failed");
+      alert(err.response?.data?.message || "Login failed");
     }
   };
 
