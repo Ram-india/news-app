@@ -1,5 +1,5 @@
-const mongoose = require('mongoose');
-const bcrypt = require('bcryptjs');
+import mongoose from 'mongoose';
+import bcrypt from'bcryptjs';
 
 const userSchema = new mongoose.Schema({
     name:{
@@ -28,6 +28,10 @@ const userSchema = new mongoose.Schema({
         enum: ['user', 'admin'],
         default: 'user',
     },
+    preferences:{
+        type:[String],
+        default: [],
+    },
 });
 
 // Hash password before saving
@@ -45,5 +49,7 @@ userSchema.methods.comparePassword = async function(enteredPassword) {
 };
 
 // Export the User model
-module.exports = mongoose.model('User', userSchema);
+const User = mongoose.model('User', userSchema);
+
+export default User;
 

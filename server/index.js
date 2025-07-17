@@ -1,14 +1,14 @@
+import express from "express";
+import cors from "cors";
+import dotenv from "dotenv";
+import connectDB from "./config/db.js";
+import newsRoutes from "./routes/newsRoutes.js";
+import authRoutes from "./routes/authRoutes.js";
+import preferenceRoutes from "./routes/preferenceRoutes.js";
+import bodyParser from "body-parser";
+import './utils/transporter.js'; 
 
-const express = require("express");
-const bodyParser = require("body-parser");
-const connectDB = require("./config/db");
-const cors = require("cors");
-require("dotenv").config();
-
-// Routes
-const authRoutes = require("./routes/authRoutes");
-const preferenceRoutes = require("./routes/preferenceRoutes");
-
+dotenv.config();
 // Initialize Express app
 const app = express();
 
@@ -28,6 +28,7 @@ app.get('/', (req, res) => {
 // Route Mapping
 app.use("/api/auth", authRoutes);
 app.use("/api/preferences", preferenceRoutes);
+app.use("/api/news", newsRoutes);
 
 
 //server start  

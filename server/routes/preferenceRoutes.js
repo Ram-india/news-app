@@ -1,10 +1,11 @@
-const express = require( "express");
+import express from "express";
 import { getPreferences, savePreferences } from "../controllers/preferenceController.js";
-import { verifyToken } from "../middleware/auth.js";
+import authMiddleware from "../middleware/authMiddleware.js";
+
 
 const router = express.Router();
 
-router.get("/", verifyToken, getPreferences);
-router.post("/", verifyToken, savePreferences);
+router.get("/", authMiddleware, getPreferences);
+router.post("/", authMiddleware, savePreferences);
 
 export default router;
