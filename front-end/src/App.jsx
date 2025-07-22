@@ -9,6 +9,7 @@ import Preference from "./pages/Preference";
 import Profile from "./pages/Profile";
 import PrivateRoute from "./routes/PrivateRoute";
 import DashboardLayout from "./layouts/DashBoardLayout";
+import Emailogs from "./components/Emailogs";
 
 
 const App = () => {
@@ -36,6 +37,7 @@ const App = () => {
         <Route path="home" element={<Home />} />
         <Route path="preferences" element={<Preference />} />
         <Route path="profile" element={<Profile />} />
+        <Route path="email-logs" element={<Emailogs/>} />
       </Route>
 
       {/* Redirect root to dashboard */}

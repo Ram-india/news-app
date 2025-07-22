@@ -1,34 +1,34 @@
+// controllers/preferenceController.js
+
 import User from "../models/User.js";
 
-//get user preferences
-export const getPreferences = async (req,res) => {
-  try{
+export const getPreferences = async (req, res) => {
+  try {
     const user = await User.findById(req.user.userId);
-
     res.status(200).json({
-      preferences:user.preferences || [],
+      preferences: user.preferences || [],
     });
-  }catch(error){
-    console.error('Error fetching user preferences:', error);
-    res.status(500).json({ message: 'Failed to fetch user preferences' });
+  } catch (error) {
+    console.error("Error fetching preferences:", error);
+    res.status(500).json({ message: "Failed to fetch preferences" });
   }
 };
-//save prefernce
-
-
-
 
 export const savePreferences = async (req, res) => {
   try {
-    const { preferences } = req.body;
-    const user = await User.findById(req.user.userId);
+    const { preferences, alertFrequency } = req.body;
+    const user = await User.findById(req.user.id);
+
     if (!user) return res.status(404).json({ message: "User not found" });
 
-    user.preferences = preferences;
+    user.preferences = preferences || user.preferences;
+    if (alertFrequency) {
+      user.alertFrequency = alertFrequency;
+    }
+
     await user.save();
-    res.status(200).json({ message: "Preferences saved" });
-  } catch (err) {
-    console.error("Saving preference error:", err);
-    res.status(500).json({ message: "Server error" });
+    res.json({ message: "Preferences saved successfully" });
+  } catch (error) {
+    res.status(500).json({ message: "Error saving preferences", error });
   }
 };

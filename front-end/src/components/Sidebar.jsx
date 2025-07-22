@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { FaHome, FaUser, FaCog } from 'react-icons/fa';
+import { FaHome, FaUser, FaCog ,FaEnvelope} from 'react-icons/fa';
 
 const Sidebar = ({ isSidebarOpen }) => {
   const location = useLocation();
@@ -11,6 +11,7 @@ const Sidebar = ({ isSidebarOpen }) => {
     { label: 'Home', path: '/dashboard/home', icon: <FaHome /> },
     { label: 'Profile', path: '/dashboard/profile', icon: <FaUser /> },
     { label: 'Preference', path: '/dashboard/preferences', icon: <FaCog /> },
+    { label: 'Email Logs', path: '/dashboard/email-logs', icon: <FaEnvelope /> }
   ];
 
   return (

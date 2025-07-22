@@ -4,13 +4,17 @@ import dotenv from "dotenv";
 import connectDB from "./config/db.js";
 import newsRoutes from "./routes/newsRoutes.js";
 import authRoutes from "./routes/authRoutes.js";
-import preferenceRoutes from "./routes/preferenceRoutes.js";
 import bodyParser from "body-parser";
-import './utils/transporter.js'; 
+import preferenceRoutes from "./routes/preferenceRoutes.js";
+import { sendCategoryNewsEmails } from './controllers/emailController.js';
+import userRoutes from "./routes/userRoutes.js";
+import  "./cron/emailscheduler.js";
 
 dotenv.config();
 // Initialize Express app
 const app = express();
+
+sendCategoryNewsEmails();
 
 //Middleware
 app.use(cors());
@@ -27,8 +31,9 @@ app.get('/', (req, res) => {
 
 // Route Mapping
 app.use("/api/auth", authRoutes);
-app.use("/api/preferences", preferenceRoutes);
 app.use("/api/news", newsRoutes);
+app.use('/api/preference', preferenceRoutes);
+app.use("/api/users", userRoutes );
 
 
 //server start  

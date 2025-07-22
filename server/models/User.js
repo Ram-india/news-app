@@ -32,6 +32,23 @@ const userSchema = new mongoose.Schema({
         type:[String],
         default: [],
     },
+    alertfrequency:{
+        type: String,
+        enum:['immediatly','hourly','daily'],
+        default:'daily',
+    },
+    emailLogs:[
+        {
+            category: String,
+            subject: String,
+            sentAt: {
+              type: Date,
+              default: Date.now,
+            },
+          },
+    ]
+
+    
 });
 
 // Hash password before saving

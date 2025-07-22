@@ -2,17 +2,24 @@ import { useEffect, useState } from "react";
 import API from "../services/axios";
 
 const categories = [
-  "business", "entertainment", "general", "health", "science", "sports", "technology"
+  "business",
+  "entertainment",
+  "general",
+  "health",
+  "science",
+  "sports",
+  "technology",
 ];
 
 const Preference = () => {
   const [selected, setSelected] = useState([]);
+  const [frequency, setFrequency] = useState('hourly')
 
-  // ✅ Fetch user preferences when page loads
+  // Fetch user preferences when page loads
   useEffect(() => {
     const fetchPreferences = async () => {
       try {
-        const res = await API.get("/preferences");
+        const res = await API.get("/preference");
         console.log(" Got preferences from server:", res.data.preferences);
         setSelected(res.data.preferences || []);
       } catch (error) {
@@ -33,9 +40,17 @@ const Preference = () => {
 
   const savePreferences = async () => {
     try {
-      await API.post("/preferences", { preferences: selected });
+      const res = await API.post("/preference", {
+         preferences: selected,
+         alertFrequency: frequency,
+    });
+      console.log("Saved preferences:", res);
       alert("Preferences saved successfully!");
     } catch (error) {
+      console.error(
+        "Failed to save preferences",
+        error.response?.data || error
+      );
       alert("Failed to save preferences");
     }
   };
@@ -58,6 +73,17 @@ const Preference = () => {
           </button>
         ))}
       </div>
+
+      <label className="block mb-2 font-semibold">Alert Frequency:</label>
+      <select
+        className="mb-4 p-2 border rounded"
+        value={frequency}
+        onChange={(e) => setFrequency(e.target.value)}
+      >
+        <option value="immediate">Immediate</option>
+        <option value="hourly">Hourly</option>
+        <option value="daily">Daily</option>
+      </select>
       <button
         onClick={savePreferences}
         className="bg-green-600 text-white px-6 py-2 rounded"
