@@ -32,11 +32,11 @@ const userSchema = new mongoose.Schema({
         type:[String],
         default: [],
     },
-    alertfrequency:{
+    alertFrequency: {
         type: String,
-        enum:['immediatly','hourly','daily'],
-        default:'daily',
-    },
+        enum: ['immediate', 'hourly', 'daily'],
+        default: 'daily',
+      },
     emailLogs:[
         {
             category: String,

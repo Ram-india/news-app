@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import API from "../services/axios";
 import { useAuth } from "../context/Authcontext";
+import { Link } from "react-router-dom";
 
 const Login = () => {
   const [form, setForm] = useState({ email: "", password: "" });
@@ -68,6 +69,9 @@ const Login = () => {
             Sign Up
           </span>
         </p>
+        <p className="text-sm text-blue-600 hover:underline mt-2">
+        <Link to="/forgot-password">Forgot Password?</Link>
+        </p>  
       </form>
     </div>
   );

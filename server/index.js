@@ -32,7 +32,7 @@ app.get('/', (req, res) => {
 // Route Mapping
 app.use("/api/auth", authRoutes);
 app.use("/api/news", newsRoutes);
-app.use('/api/preference', preferenceRoutes);
+app.use('/api/preferences', preferenceRoutes);
 app.use("/api/users", userRoutes );
 
 

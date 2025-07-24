@@ -67,3 +67,31 @@ export const getProfile = async (req, res) => {
     res.status(500).json({ message: "Internal Server error" });
   }
 };
+
+// Update Profile
+
+
+export const updateProfile = async (req, res) => {
+  try {
+    const { name, email, password } = req.body;
+    const user = await User.findById(req.user.userId);
+
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    user.name = name || user.name;
+    user.email = email || user.email;
+
+    if (password) {
+      user.password = password; // will be hashed via pre-save middleware
+    }
+
+    await user.save();
+
+    res.status(200).json({ message: 'Profile updated successfully', user });
+  } catch (error) {
+    console.error('Update profile error:', error);
+    res.status(500).json({ message: 'Failed to update profile' });
+  }
+};

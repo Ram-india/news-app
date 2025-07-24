@@ -35,7 +35,7 @@ const Profile = () => {
 
         <div className="mt-6">
           <button
-            onClick={() => navigate('/edit-profile')} // optional: create route
+            onClick={() => navigate('/dashboard/edit-profile')} // optional: create route
             className="w-full bg-green-600 hover:bg-green-700 text-white py-2 rounded mb-3"
             >
             Edit Profile
