@@ -69,7 +69,7 @@ const Login = () => {
             Sign Up
           </span>
         </p>
-        <p className="text-sm text-blue-600 hover:underline mt-2">
+        <p className="text-sm text-blue-600 text-right hover:underline mt-2">
         <Link to="/forgot-password">Forgot Password?</Link>
         </p>  
       </form>

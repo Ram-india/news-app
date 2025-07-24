@@ -29,7 +29,9 @@ const Navbar = ({ setIsSidebarOpen, isSidebarOpen }) => {
   return (
     <header className="flex justify-between items-center bg-blue-800 text-white px-6 py-4 shadow z-20 relative">
   
-      <button onClick={() => setIsSidebarOpen((prev) => !prev)}>
+      <button 
+       className="md:hidden"
+      onClick={() => setIsSidebarOpen((prev) => !prev)}>
         <FaBars />
       </button>
       <h1 className="text-xl font-bold">NEWS APP</h1>

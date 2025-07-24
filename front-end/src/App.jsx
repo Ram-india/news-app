@@ -22,7 +22,7 @@ const App = () => {
 
   return (
     <>
-   <Toaster position="top-center" />
+   <Toaster position="middle-left" />
    <Routes>
   {/* Public Routes */}
   <Route path="/login" element={<Login />} />
