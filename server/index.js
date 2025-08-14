@@ -19,7 +19,7 @@ sendCategoryNewsEmails();
 
 //Middleware
 app.use(cors({
-  origin: '*'
+  origin: process.env.CLIENT_URL,
 }));
 
 app.use(bodyParser.json());
